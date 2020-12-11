@@ -482,7 +482,7 @@ public class WebKatalogoa { //klase hau EMA,singleton patroia
 						String url2=sc.nextLine();
 						
 						ArrayList<String> emaitza=grafoa.erlazionatutaBidea(url1, url2);
-						if(emaitza.size()<=1){
+						if(emaitza.size()<=1 || emaitza==null){
 							System.out.println("Ez daude aukeratutako url-ak haien artean erlazionatuta");
 						}else{
 							for (int i = 0; i < emaitza.size(); i++) {
@@ -503,10 +503,24 @@ public class WebKatalogoa { //klase hau EMA,singleton patroia
 						System.out.println("Lehenik eta behin idatzi sartu gako hitza eta Enter tekla sakatu:\n");
 						Scanner sc = new Scanner(System.in);
 						String s=sc.nextLine();
+						
 						ArrayList<Bikote> emaitza=grafoa.bilatzailea(s);
-						for (int i = 0; i < 100; i++) {
+						
+						try {
+							
+						
+						for (int i = 0; i < 4; i++) {
+							
 							System.out.println(emaitza.get(i).getWeb()+"------>"+emaitza.get(i).getPageRank());
+							
 						}
+						} catch (NullPointerException e) {
+							System.out.println("Ez dago gako hitz horrekin erlazionatzen diren web-ak");
+							System.out.println("Saiatu berriro sartzen");
+							
+						}
+							
+						
 					}else if(aukera==14){
 						System.out.println("Lehenik eta behin idatzi sartu gako hitza eta Enter tekla sakatu:\n");
 						Scanner sc = new Scanner(System.in);

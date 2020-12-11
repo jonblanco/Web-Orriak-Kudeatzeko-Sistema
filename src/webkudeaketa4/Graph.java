@@ -52,7 +52,6 @@ public class Graph {
 			
 			keys[th.get(web.getUrl())] = web.getUrl();
 			this.pageRank.put(web.getUrl(), PR);
-			System.out.println(pageRank.get(web.getUrl()));
 			
 			// 3. pausua: “adjList” bete            
 			
@@ -233,7 +232,7 @@ public class Graph {
 		HashMap<String, Double> emaitza = null;
 		double PR,PRA,kenketa=0.0;
 		boolean amaitu=false;
-		for(int i=0;i<100; i++){
+		for(int i=0;i<4; i++){
 			PRA=pageRank.get(keys[i]);
 			PR=((1.00-dampingFactor)/(double)(keys.length))+dampingFactor*AEstekatzenPR(i);
 			pageRank.put(this.keys[i], PR);
@@ -252,7 +251,7 @@ public class Graph {
 	public void pageRankInprimatu(){
 		String url;
 		double pr;
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 4; i++) {
 			url=keys[i];
 			pr=pageRank.get(url);
 			System.out.println(url+":--------->"+pr);		
@@ -264,8 +263,12 @@ public class Graph {
 		pagerank-aren arabera handienetik txikienera ordenatuta (hau da,
 		lehenengo posizioetan pagerank handiena duten web-orriak agertuko dira)
 		*/
-		ArrayList<Bikote> emaitza=new ArrayList<Bikote>();
+		ArrayList<Bikote> emaitza;
 		ArrayList<WebOrri> web=GakoHitzKatalogoa.getNireGakoHitzak().word2Webs(gakoHitz);
+		if(web==null){
+			emaitza=null;
+		}else{
+			emaitza=new ArrayList<Bikote>();
 		WebOrri weba;
 		String url;
 		double pr;
@@ -280,10 +283,9 @@ public class Graph {
 		Collections.sort(emaitza, new Comparator<Bikote>() {
 			public int compare(Bikote bik1, Bikote bik2) {
 				return new Double(bik2.getPageRank()).compareTo(new Double(bik1.getPageRank()));
-			}
-
-			
+			}	
 		});
+		}
 		return emaitza;
 	}
 	
