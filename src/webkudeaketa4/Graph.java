@@ -232,7 +232,7 @@ public class Graph {
 		HashMap<String, Double> emaitza = null;
 		double PR,PRA,kenketa=0.0;
 		boolean amaitu=false;
-		for(int i=0;i<4; i++){
+		for(int i=0;!amaitu; i++){
 			PRA=pageRank.get(keys[i]);
 			PR=((1.00-dampingFactor)/(double)(keys.length))+dampingFactor*AEstekatzenPR(i);
 			pageRank.put(this.keys[i], PR);
@@ -245,7 +245,8 @@ public class Graph {
 		long bukaera=System.currentTimeMillis();
 		double denbora=(double)((bukaera-hasiera)/1000);
 		System.out.println(denbora+"segundu");
-		
+		System.out.println();
+		emaitza=pageRank;
 		return emaitza;
 	}
 	public void pageRankInprimatu(){
@@ -294,8 +295,24 @@ public class Graph {
 		ArrayList<WebOrri> web1=GakoHitzKatalogoa.getNireGakoHitzak().word2Webs(gakoHitz1);
 		ArrayList<WebOrri> web2=GakoHitzKatalogoa.getNireGakoHitzak().word2Webs(gakoHitz2);
 		ArrayList<WebOrri> webGuztiak=new ArrayList<WebOrri>();
-		webGuztiak.addAll(web1);
-		webGuztiak.addAll(web2);
+		
+		if(web1==null && web2==null){
+			webGuztiak=null;
+		}
+		else if(web1==null && web2!=null){
+			System.out.println("Ez dago inolako weba sartu duzun lehenengo gako hitzarekin");
+			webGuztiak.addAll(web2);
+			
+		}else if(web2==null && web1!=null){
+			webGuztiak.addAll(web1);
+			System.out.println("Ez dago inolako weba sartu duzun bigarren gako hitzarekin");
+
+		}else if(web2!=null && web1!=null){
+			webGuztiak.addAll(web1);
+			webGuztiak.addAll(web2);
+		}
+		//webGuztiak.addAll(web1);
+		//webGuztiak.addAll(web2);
 		Iterator<WebOrri> itr=webGuztiak.iterator();
 		WebOrri weba;
 		String url;

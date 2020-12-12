@@ -527,10 +527,14 @@ public class WebKatalogoa { //klase hau EMA,singleton patroia
 						String s=sc.nextLine();
 						System.out.println("idatzi bigarren gako hitza eta Enter tekla sakatu:\n");
 						String s2=sc.nextLine();
+						try{
 						ArrayList<Bikote> emaitza=grafoa.bilatazilea2(s,s2);
 						for (Bikote bikote : emaitza) {
 							System.out.println(bikote.getWeb()+"------>"+bikote.getPageRank());
 							
+						}
+						}catch(NullPointerException e){
+							System.out.println("Ez dago inolako webak sartu dituzun gakoekin");
 						}
 					}
 					
